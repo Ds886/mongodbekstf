@@ -40,7 +40,7 @@ set +eu
 [ -z "${BIN_TF_VER_EXPECT}" ] && BIN_TF_VER_EXPECT="1.9.0"
 BIN_TF="$(command -v terraform)"
 [ -z "${BIN_TF}" ] &&  logError "Terraform not found" && exit 1
-BIN_TF_VER="$(${BIN_TF} --version --json|grep version|tr -d\ ,\"|cut -d: -f2)"
+BIN_TF_VER="$(${BIN_TF} --version --json|grep version|tr -d \ ,\"|cut -d: -f2)"
 [ "${BIN_TF_VER}" != "${BIN_TF_VER_EXPECT}" ] && logError "Terraform version is incorrect: expected '${BIN_TF_VER_EXPECT}'; got '${BIN_TF_VER}"
 
 BIN_CRUNTIME=
