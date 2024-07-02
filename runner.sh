@@ -59,9 +59,9 @@ printEnv(){
   logTrace "Container runtime: '${BIN_CRUNTIME}'"
   logTrace "Container registry: '${CONT_REG}'"
   logTrace "Container registry path: '${CONT_REG_PATH}'"
-  logTrace "Container name: ${CONT_NAME}"
-  logTrace "Container tag: ${CONT_TAG}"
-  logTrace "Container full name: ${CONT_FULLNAME}"
+  logTrace "Container name: '${CONT_NAME}'"
+  logTrace "Container tag: '${CONT_TAG}'"
+  logTrace "Container full name: '${CONT_FULLNAME}'"
 }
 
 printEnv
