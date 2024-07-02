@@ -55,6 +55,15 @@ BIN_CRUNTIME="${BIN_PODMAN}"
 [ -z "${BIN_CRUNTIME}" ] &&   logError "No container runtime found please ensure you have either docker or podman on the machine" exit 1
 set -eu
 
+printEnv(){
+  logTrace "Terraform path: '${BIN_TF}'"
+  logTrace "Terraform version: '${BIN_TF_VER}'"
+  logTrace "AWS path: '${BIN_AWS}'"
+  logTrace "Container runtime: '${BIN_CRUNTIME}'"
+}
+
+printEnv
+
 
 
 

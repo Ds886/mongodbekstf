@@ -52,10 +52,20 @@ CONT_REG=""
 CONT_REG_PATH=""
 CONT_NAME="terraform-run"
 CONT_TAG="base"
-CONT_FULLNAME=${CONT_NAME}:${CONT_TAG}
+CONT_FULLNAME="${CONT_NAME}:${CONT_TAG}"
 [ -n "${CONT_REG_PATH}" ] && CONT_FULLNAME="${CONT_REG_PATH}/${CONT_FULLNAME}"
 [ -n "${CONT_REG}" ] && CONT_FULLNAME="${CONT_REG}/${CONT_FULLNAME}"
 set -eu
 
+printEnv(){
+  logTrace "Container runtime: '${BIN_CRUNTIME}'"
+  logTrace "Container registry: '${CONT_REG}'"
+  logTrace "Container registry path: '${CONT_REG_PATH}'"
+  logTrace "Container name: ${CONT_NAME}"
+  logTrace "Container tag: ${CONT_TAG}"
+  logTrace "Container full name: ${CONT_FULLNAME}"
+}
+
+printEnv
 "${BIN_CRUNTIME}" build -t "${CONT_FULLNAME}" .
 "${BIN_CRUNTIME}" run  --rm -it "${CONT_FULLNAME}"
