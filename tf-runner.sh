@@ -43,10 +43,10 @@ BIN_TF="$(command -v terraform)"
 BIN_TF_VER="$(${BIN_TF} --version --json|grep version|tr -d \ ,\"|cut -d: -f2)"
 [ "${BIN_TF_VER}" != "${BIN_TF_VER_EXPECT}" ] && logError "Terraform version is incorrect: expected '${BIN_TF_VER_EXPECT}'; got '${BIN_TF_VER}"
 
-BIN_CRUNTIME=
 BIN_AWS="$(command -v aws)"
 [ -z "${BIN_AWS}" ] &&  logError "awscli not found" && exit 1
 
+BIN_CRUNTIME=
 BIN_PODMAN="$(command -v podman)"
 BIN_CRUNTIME="${BIN_PODMAN}"
 [ -z "${BIN_CRUNTIME}" ] &&  logError "podman not found trying docker" 
