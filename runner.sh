@@ -37,12 +37,6 @@ logError(){
 }
 
 set +eu
-[ -z "${BIN_TF_VER_EXPECT}" ] && BIN_TF_VER_EXPECT="1.9.0"
-BIN_TF="$(command -v terraform)"
-[ -z "${BIN_TF}" ] &&  logError "Terraform not found" && exit 1
-BIN_TF_VER="$(${BIN_TF} --version --json|grep version|tr -d\ ,\"|cut -d: -f2)"
-[ "${BIN_TF_VER}" != "${BIN_TF_VER_EXPECT}" ] && logError "Terraform version is incorrect: expected '${BIN_TF_VER_EXPECT}'; got '${BIN_TF_VER}"
-
 BIN_CRUNTIME=
 BIN_AWS="$(command -v aws)"
 [ -z "${BIN_AWS}" ] &&  logError "awscli not found" && exit 1
@@ -53,8 +47,15 @@ BIN_CRUNTIME="${BIN_PODMAN}"
 
 [ -z "${BIN_CRUNTIME}" ] &&  BIN_DOCKER="$(command -v docker)" && BIN_CRUNTIME="${BIN_DOCKER}"
 [ -z "${BIN_CRUNTIME}" ] &&   logError "No container runtime found please ensure you have either docker or podman on the machine" exit 1
+
+CONT_REG=""
+CONT_REG_PATH=""
+CONT_NAME="terraform-run"
+CONT_TAG="base"
+CONT_FULLNAME=${CONT_NAME}:${CONT_TAG}
+[ -n "${CONT_REG_PATH}" ] && CONT_FULLNAME="${CONT_REG_PATH}/${CONT_FULLNAME}"
+[ -n "${CONT_REG}" ] && CONT_FULLNAME="${CONT_REG}/${CONT_FULLNAME}"
 set -eu
 
-
-
-
+"${BIN_CRUNTIME}" build -t "${CONT_FULLNAME}" .
+"${BIN_CRUNTIME}" run  --rm -it "${CONT_FULLNAME}"
