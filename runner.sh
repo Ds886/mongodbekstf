@@ -37,6 +37,13 @@ logError(){
 }
 
 set +eu
+BIN_AWS="$(command -v aws)"
+[ -z "${BIN_AWS}" ] &&  logError "awscli not found" && exit 1
+"${BIN_AWS}" sts get-caller-identity > /dev/null
+AWS_STS_EC=$?
+[ "${AWS_STS_EC}" != 0 ] && logError "Not logged in to AWS" && exit 1
+AWS_VARS=$(env|grep AWS|(while read -r line; do printf ' -e %s' "$line";done))
+
 
 BIN_CRUNTIME=
 BIN_PODMAN="$(command -v podman)"
@@ -53,6 +60,7 @@ CONT_TAG="base"
 CONT_FULLNAME="${CONT_NAME}:${CONT_TAG}"
 [ -n "${CONT_REG_PATH}" ] && CONT_FULLNAME="${CONT_REG_PATH}/${CONT_FULLNAME}"
 [ -n "${CONT_REG}" ] && CONT_FULLNAME="${CONT_REG}/${CONT_FULLNAME}"
+
 set -eu
 
 printEnv(){
@@ -66,4 +74,5 @@ printEnv(){
 
 printEnv
 "${BIN_CRUNTIME}" build -t "${CONT_FULLNAME}" .
-"${BIN_CRUNTIME}" run  --rm -it "${CONT_FULLNAME}"
+# shellcheck disable=2086
+"${BIN_CRUNTIME}" run  --rm -it ${AWS_VARS} "${CONT_FULLNAME}"
