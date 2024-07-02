@@ -37,10 +37,8 @@ logError(){
 }
 
 set +eu
-BIN_CRUNTIME=
-BIN_AWS="$(command -v aws)"
-[ -z "${BIN_AWS}" ] &&  logError "awscli not found" && exit 1
 
+BIN_CRUNTIME=
 BIN_PODMAN="$(command -v podman)"
 BIN_CRUNTIME="${BIN_PODMAN}"
 [ -z "${BIN_CRUNTIME}" ] &&  logError "podman not found trying docker" 
