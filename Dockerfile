@@ -6,9 +6,7 @@ RUN curl -o "terraform.zip" "https://releases.hashicorp.com/terraform/${BIN_TF_V
       && unzip -qq terraform.zip \
       && install -Dm 755 terraform /usr/bin \
       && rm -rf terraform.zip LICENSE.txt
-RUN apk remove curl unzip
+RUN apk del curl unzip
 
 COPY . /tf-run
 WORKDIR /tf-run
-
-
