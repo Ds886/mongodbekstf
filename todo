@@ -1,7 +1,7 @@
 TODO:
 
 Infra:
-[ ] Launcher + Docker
+[V] Launcher + Docker
 [ ] Upload to ECR the mongo image local
 [ ] EKS
 	[ ] Public subnet

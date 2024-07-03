@@ -52,7 +52,10 @@ BIN_CRUNTIME="${BIN_PODMAN}"
 
 [ -z "${BIN_CRUNTIME}" ] &&  BIN_DOCKER="$(command -v docker)" && BIN_CRUNTIME="${BIN_DOCKER}"
 [ -z "${BIN_CRUNTIME}" ] &&   logError "No container runtime found please ensure you have either docker or podman on the machine" exit 1
-
+CONT_PATH_IMAGE_FOLDER=_images
+[ ! -e "${CONT_PATH_IMAGE_FOLDER}" ] && logError "Couldn't find image folder" && exit 1
+CONT_PATH_IMAGE_FILE=Dockerfile.terraformaws
+[ ! -e "${CONT_PATH_IMAGE_FOLDER}/${CONT_PATH_IMAGE_FILE}" ] && logError "Couldn't find Dockerfile" && exit 1
 CONT_REG=""
 CONT_REG_PATH=""
 CONT_NAME="terraform-run"
@@ -73,6 +76,6 @@ printEnv(){
 }
 
 printEnv
-"${BIN_CRUNTIME}" build -t "${CONT_FULLNAME}" .
+"${BIN_CRUNTIME}" build -t "${CONT_FULLNAME}" -f "${CONT_PATH_IMAGE_FOLDER}/${CONT_PATH_IMAGE_FILE}" .
 # shellcheck disable=2086
 "${BIN_CRUNTIME}" run  --rm -it ${AWS_VARS} "${CONT_FULLNAME}"
