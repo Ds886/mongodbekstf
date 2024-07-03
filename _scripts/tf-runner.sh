@@ -53,6 +53,9 @@ BIN_CRUNTIME="${BIN_PODMAN}"
 
 [ -z "${BIN_CRUNTIME}" ] &&  BIN_DOCKER="$(command -v docker)" && BIN_CRUNTIME="${BIN_DOCKER}"
 [ -z "${BIN_CRUNTIME}" ] &&   logError "No container runtime found please ensure you have either docker or podman on the machine" exit 1
+
+TARGETS="$@"
+[ -z "${TARGETS}" ] && TARGETS="init plan apply"
 set -eu
 
 printEnv(){
@@ -63,6 +66,24 @@ printEnv(){
 }
 
 printEnv
+
+for TARGET in ${TARGETS} 
+do
+  case $TARGET in
+    "init")
+      "${BIN_TF}" init
+      ;;
+    "plan")
+      "${BIN_TF}" plan
+      ;;
+    "apply")
+      "${BIN_TF}" apply
+      ;;
+    "destroy")
+      "${BIN_TF}" destroy
+      ;;
+  esac
+done
 
 
 
