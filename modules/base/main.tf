@@ -13,8 +13,7 @@ resource "aws_subnet" "subnet_public" {
   availability_zone = element(var.subnet_az_list, count.index)
 
   tags = {
-    Name    = "Public Subnet ${count.index + 1}"
-    Project = "MonogoVPC"
+    Name = "Public Subnet ${count.index + 1}"
   }
 }
 
@@ -25,8 +24,7 @@ resource "aws_subnet" "subnet_private" {
   availability_zone = element(var.subnet_az_list, count.index)
 
   tags = {
-    Name    = "Private Subnet ${count.index + 1}"
-    Project = "MonogoVPC"
+    Name = "Private Subnet ${count.index + 1}"
   }
 }
 
@@ -34,7 +32,6 @@ resource "aws_internet_gateway" "ig" {
   vpc_id = aws_vpc.vpc_main.id
 
   tags = {
-    Name    = "Mongo Internet Gateway"
-    Project = "MonogoVPC"
+    Name = "Mongo Internet Gateway"
   }
 }
