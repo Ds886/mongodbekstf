@@ -3,8 +3,11 @@ TODO:
 Infra:
 [V] Launcher + Docker
 [ ] Upload to ECR the mongo image local
+[V] VPC
+	[V] VPC
+	[V] Subnets
+	[V] Public subnet
 [ ] EKS
-	[ ] Public subnet
 	[ ] Application Load Balancer controller
 [ ] Helm depployment of Mongo
 	[ ] Ingress Annotaion of ALB
