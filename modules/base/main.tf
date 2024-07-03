@@ -7,12 +7,14 @@ resource "aws_vpc" "vpc_main" {
 }
 
 resource "aws_subnet" "subnet_public" {
-  count      = length(var.cidr_subnet_public)
-  vpc_id     = aws_vpc.vpc_main.id
-  cidr_block = element(var.cidr_subnet_public, count.index)
+  count             = length(var.cidr_subnet_public)
+  vpc_id            = aws_vpc.vpc_main.id
+  cidr_block        = element(var.cidr_subnet_public, count.index)
+  availability_zone = element(var.subnet_az_list, count.index)
 
   tags = {
-    Name = "Public Subnet ${count.index + 1}"
+    Name    = "Public Subnet ${count.index + 1}"
+    Project = "MonogoVPC"
   }
 }
 
@@ -23,6 +25,16 @@ resource "aws_subnet" "subnet_private" {
   availability_zone = element(var.subnet_az_list, count.index)
 
   tags = {
-    Name = "Private Subnet ${count.index + 1}"
+    Name    = "Private Subnet ${count.index + 1}"
+    Project = "MonogoVPC"
+  }
+}
+
+resource "aws_internet_gateway" "ig" {
+  vpc_id = aws_vpc.vpc_main.id
+
+  tags = {
+    Name    = "Mongo Internet Gateway"
+    Project = "MonogoVPC"
   }
 }
