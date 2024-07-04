@@ -5,11 +5,17 @@ terraform {
       version = "5.56.1"
     }
   }
+  backend "s3" {
+    bucket = "us-east-2-8517-mongoeks"
+    key    = "eks-state.tfstate"
+    region = "us-east-2"
+
+  }
 }
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
   default_tags {
     tags = {
       Project = "Monogo"
