@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "us-east-2-8517-mongoeks"
+    bucket = "ue2-8517-mongoeks"
     key    = "eks-state.tfstate"
     region = "us-east-2"
 
