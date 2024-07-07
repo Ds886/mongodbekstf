@@ -16,7 +16,7 @@ Optional
 	[ ] ArgoCD/Flux
 	[ ] Autoscaler
 	[ ] Multiple AZ
-	[V] WAF
+	[ ] WAF
 	[ ] Cloudfront
 	[ ] Backup
 	[ ] Documentation of setting env from scratch
