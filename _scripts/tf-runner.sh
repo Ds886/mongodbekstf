@@ -54,6 +54,8 @@ BIN_CRUNTIME="${BIN_PODMAN}"
 [ -z "${BIN_CRUNTIME}" ] &&  BIN_DOCKER="$(command -v docker)" && BIN_CRUNTIME="${BIN_DOCKER}"
 [ -z "${BIN_CRUNTIME}" ] &&   logError "No container runtime found please ensure you have either docker or podman on the machine" exit 1
 
+FILE_PLAN=plan
+
 TARGETS="$@"
 [ -z "${TARGETS}" ] && TARGETS="init plan apply"
 set -eu
@@ -74,10 +76,10 @@ do
       "${BIN_TF}" init
       ;;
     "plan")
-      "${BIN_TF}" plan
+      "${BIN_TF}" plan -out "${FILE_PLAN}"
       ;;
     "apply")
-      "${BIN_TF}" apply
+      "${BIN_TF}" apply "${FILE_PLAN}"
       ;;
     "destroy")
       "${BIN_TF}" destroy
