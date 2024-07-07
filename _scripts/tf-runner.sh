@@ -76,7 +76,7 @@ do
       "${BIN_TF}" init
       ;;
     "plan")
-      "${BIN_TF}" plan -out "${FILE_PLAN}"
+      "${BIN_TF}"   plan -out="./${FILE_PLAN}"
       ;;
     "apply")
       "${BIN_TF}" apply "${FILE_PLAN}"

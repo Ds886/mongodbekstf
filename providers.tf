@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.56.1"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.14.0"
+    }
   }
   backend "s3" {
     bucket = "ue2-8517-mongoeks-da"
@@ -22,4 +26,11 @@ provider "aws" {
     }
   }
 }
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
 
