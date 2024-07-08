@@ -11,6 +11,9 @@ Infra:
 [ ] Helm deployment of Mongo
 	[ ] Upload to ECR the mongo image local
 	[ ] Ingress Annotaion of ALB
+[V] Dockerfile
+	[V] Node
+	[V] Terraform
 
 Optional
 	[ ] ArgoCD/Flux
