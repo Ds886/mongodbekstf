@@ -2,11 +2,17 @@ module "base_vpc" {
   source = "./modules/base"
 }
 
-resource "helm_release" "mongo" {
-  name  = "mongo"
-  chart = "./_helm/mongodb"
-
+module "base_eks" {
+  source                  = "./modules/eks"
+  cidr_eks_subnet_private = module.base_vpc.subnet_private_id
+  cidr_eks_subnet_public  = module.base_vpc.subnet_public_id
+  vpc_eks_id              = module.base_vpc.vpc_id
 }
+# resource "helm_release" "mongo" {
+#   name  = "mongo"
+#   chart = "./_helm/mongodb"
+
+# }
 
 # source: https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/examples/eks-managed-node-group/eks-al2023.tf
 # module "eks_al2023" {
