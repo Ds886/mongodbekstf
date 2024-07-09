@@ -74,8 +74,8 @@ resource "aws_route_table" "rt_public" {
 resource "aws_route_table" "rt_private" {
   vpc_id = aws_vpc.vpc_main.id
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.eks_nat.id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.eks_nat.id
   }
 
   tags = {
